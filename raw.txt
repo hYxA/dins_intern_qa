@@ -1,0 +1,287 @@
+swagger: '2.0'
+info:
+  title: Weatherbit.io - Swagger UI Weather API documentation
+  description: 'This is the documentation for the Weatherbit Weather API.  The base URL for the API is [http://api.weatherbit.io/v2.0/](http://api.weatherbit.io/v2.0/) or [https://api.weatherbit.io/v2.0/](http://api.weatherbit.io/v2.0/). Below is the Swagger UI documentation for the API. All API requests require the `key` parameter.        An Example for a 5 day forecast for London, UK would be `http://api.weatherbit.io/v2.0/forecast/3hourly?city=London`&`country=UK`. See our [Weather API description page](https://www.weatherbit.io/api) for additional documentation.'
+  version: 2.0.0
+host: api.weatherbit.io
+schemes:
+  - https
+  - http
+basePath: /v2.0
+produces:
+  - application/json
+paths:
+  /current:
+    get:
+      summary: Returns a Current Observation - Given a lat/lon.
+      description: 'Returns a Current Observation - given a lat, and a lon.'
+      parameters:
+        - name: lat
+          in: path
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: lon
+          in: path
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: marine
+          in: query
+          description: 'Marine stations only (buoys, oil platforms, etc)'
+          required: false
+          enum:
+            - t
+          type: string
+          format: string
+        - name: units
+          in: query
+          description: Convert to units. Default Metric See <a target='blank' href='https://www.weatherbit.io/api/requests'>units field description</a>
+          required: false
+          enum:
+            - S
+            - I
+          type: string
+          format: string
+        - name: lang
+          in: query
+          description: 'Language (Default: English) See <a target=''blank'' href=''https://www.weatherbit.io/api/requests''>language field description</a>'
+          required: false
+          enum:
+            - ar
+            - az
+            - be
+            - bg
+            - bs
+            - ca
+            - cs
+            - de
+            - fi
+            - fr
+            - el
+            - es
+            - et
+            - hr
+            - hu
+            - id
+            - it
+            - is
+            - kw
+            - nb
+            - nl
+            - pl
+            - pt
+            - ro
+            - ru
+            - sk
+            - sl
+            - sr
+            - sv
+            - tr
+            - uk
+            - zh
+            - zh-tw
+          type: string
+          format: string
+        - name: callback
+          in: query
+          description: Wraps return in jsonp callback - Example - callback=func
+          required: false
+          type: string
+          format: string
+        - name: key
+          in: query
+          description: Your registered API key.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Current Weather Data
+      responses:
+        '200':
+          description: An Observation Group object.
+          schema:
+            $ref: '#/definitions/CurrentObsGroup'
+        default:
+          description: No Data.
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  CurrentObs:
+    type: object
+    properties:
+      city_name:
+        type: string
+        description: City name (closest)
+        example: Raleigh
+      state_code:
+        type: string
+        description: State abbreviation
+        example: NC
+      country_code:
+        type: string
+        description: Country abbreviation
+        example: US
+      timezone:
+        type: string
+        description: Local IANA time zone
+        example: America/New_York
+      lat:
+        type: number
+        description: Latitude
+        example: 38
+      lon:
+        type: number
+        description: Longitude
+        example: -78.25
+      station:
+        type: string
+        description: Source Station ID
+        example: KRDU
+      vis:
+        type: integer
+        description: Visibility - default (M)
+        example: 10000
+      rh:
+        type: integer
+        description: Relative humidity (%)
+        example: 75
+      dewpt:
+        type: number
+        description: Dew point temperature - default (C)
+        example: 12
+      wind_dir:
+        type: integer
+        description: Wind direction (degrees)
+        example: 125
+      wind_cdir:
+        type: string
+        description: Cardinal wind direction
+        example: ENE
+      wind_cdir_full:
+        type: string
+        description: Cardinal wind direction (text)
+        example: East-North-East
+      wind_speed:
+        type: number
+        description: Wind speed - Default (m/s)
+        example: 5.85
+      temp:
+        type: number
+        description: Temperature - Default (C)
+        example: 13.85
+      app_temp:
+        type: number
+        description: Apparent temperature - Default (C)
+        example: 14.85
+      clouds:
+        type: integer
+        description: Cloud cover (%)
+        example: 42
+      weather:
+        type: object
+        properties:
+          icon:
+            type: string
+            description: Icon code for forecast image display
+            example: c02
+          code:
+            type: string
+            description: Weather Condition code
+            example: '802'
+          description:
+            type: string
+            description: Weather Condition description
+            example: Broken clouds
+      datetime:
+        type: string
+        description: Cycle Hour (UTC) of observation
+        example: '2017-03-15:13'
+      ob_time:
+        type: string
+        description: 'Full time (UTC) of observation (YYYY-MM-DD HH:MM)'
+        example: '2017-03-15 13:11'
+      ts:
+        type: number
+        description: Unix Timestamp
+        example: 1490990400
+      sunrise:
+        type: string
+        description: 'Time (UTC) of Sunrise (HH:MM)'
+        example: '06:22'
+      sunset:
+        type: string
+        description: 'Time (UTC) of Sunset (HH:MM)'
+        example: '19:34'
+      slp:
+        type: number
+        description: Mean sea level pressure in millibars (mb)
+        example: 1013.12
+      pres:
+        type: number
+        description: Pressure (mb)
+        example: 1010
+      aqi:
+        type: number
+        description: Air quality index (US EPA standard 0 to +500)
+        example: 50
+      uv:
+        type: number
+        description: UV Index
+        example: 6.5
+      solar_rad:
+        type: number
+        description: Estimated solar radiation (W/m^2)
+        example: 300.4
+      ghi:
+        type: number
+        description: Global horizontal irradiance (W/m^2)
+        example: 450.4
+      dni:
+        type: number
+        description: Direct normal irradiance (W/m^2)
+        example: 450.4
+      dhi:
+        type: number
+        description: Diffuse horizontal irradiance (W/m^2)
+        example: 450.4
+      elev_angle:
+        type: number
+        description: Current solar elevation angle (Degrees)
+        example: 37
+      hour_angle:
+        type: number
+        description: Current solar hour angle (Degrees)
+        example: 45
+      pod:
+        type: string
+        description: 'Part of the day (d = day, n = night)'
+      precip:
+        type: number
+        description: Precipitation in last hour - Default (mm)
+        example: 2
+      snow:
+        type: number
+        description: Snowfall in last hour - Default (mm)
+        example: 10
+  CurrentObsGroup:
+    type: object
+    properties:
+      count:
+        type: integer
+        description: Count of found observations
+        example: '1'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/CurrentObs'
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
