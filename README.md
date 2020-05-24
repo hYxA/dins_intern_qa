@@ -55,7 +55,7 @@ Values lat and lon is Query params, not a path.
     key:ddf5b7e63db6408bbfe9e102a0f8bb21  <br>	}
 
     Result: <br>
-    get observe for lan/lot, state code is ignored
+    get observe for lat/lon, state code is ignored
 
 1. Enter wrong key<br>
     { <br>
