@@ -33,9 +33,37 @@ Values lat and lon is Query params, not a path.
 
 1. Enter params without lat/lon
  
-    { lang:en
-    units:m
-    state_code:771
-    //lat:59.95
-    //lon:30.32
-    key:ddf5b7e63db6408bbfe9e102a0f8bb21	}
+    { <br>
+    lang:en <br>
+    units:m  <br>
+    //lat:59.95  <br>
+    //lon:30.32  <br>
+    key:ddf5b7e63db6408bbfe9e102a0f8bb21  <br>	}
+
+    Result: <br>
+    { 
+    "error": "Invalid Parameters supplied."
+    }
+
+1. Enter state_code and lat/lon for different locations <br>
+    { <br>
+    lang:en <br>
+    units:m  <br>
+    state_code:771  <br>
+    lat:59.95  <br>
+    lon:30.32  <br>
+    key:ddf5b7e63db6408bbfe9e102a0f8bb21  <br>	}
+
+    Result: <br>
+    get observe for lan/lot, state code is ignored
+
+1. Enter wrong key<br>
+    { <br>
+    lang:en <br>
+    units:m  <br>
+    lat:59.95  <br>
+    lon:30.32  <br>
+    key:ddf5b7e63db6408bbfe9e102a  <br>	}
+
+    Result: <br>
+    {"error": "API key not valid, or not yet activated."}
